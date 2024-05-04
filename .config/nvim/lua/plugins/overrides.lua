@@ -158,15 +158,15 @@ return {
 					header = vim.split(logo, "\n"),
           -- stylua: ignore
           center = {
-            { action = "FzfLua files",                                                  desc = " Find file",       icon = " ", key = "f" },
-            { action = "ene | startinsert",                                             desc = " New file",        icon = " ", key = "n" },
-            { action = "FzfLua oldfiles",                                               desc = " Recent files",    icon = " ", key = "r" },
-            { action = "FzfLua live_grep",                                              desc = " Find text",       icon = " ", key = "g" },
-            { action = [[require('fzf-lua').files({cwd = vim.fn.stdpath("config") })]], desc= " Config",           icon = " ", key = "c" },
-            { action = 'lua require("persistence").load()',                             desc = " Restore Session", icon = " ", key = "s" },
+            { action = "Telescope find_files",                                                     desc = " Find file",       icon = " ", key = "f" },
+            { action = "ene | startinsert",                                                        desc = " New file",        icon = " ", key = "n" },
+            { action = "Telescope oldfiles",                                                       desc = " Recent files",    icon = " ", key = "r" },
+            { action = "Telescope live_grep",                                                      desc = " Find text",       icon = " ", key = "g" },
+            { action = [[require('telescope.builtin').find_files({cwd = vim.fn.stdpath("config") })]], desc= " Config",           icon = " ", key = "c" },
+            { action = 'lua require("persistence").load()',                                        desc = " Restore Session", icon = " ", key = "s" },
             -- { action = "LazyExtras",                                                    desc = " Lazy Extras",     icon = " ", key = "x" },
-            { action = "Lazy",                                                          desc = " Lazy",            icon = "󰒲 ", key = "l" },
-            { action = "qa",                                                            desc = " Quit",            icon = " ", key = "q" },
+            { action = "Lazy",                                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
+            { action = "qa",                                                                       desc = " Quit",            icon = " ", key = "q" },
           },
 					footer = function()
 						local stats = require("lazy").stats()
@@ -219,25 +219,53 @@ return {
 			-- Useful for getting pretty icons, but requires a Nerd Font.
 			{ "nvim-tree/nvim-web-devicons", enabled = true },
 		},
-    -- stylua: ignore
-    keys = {
-      -- disable the keymap to grep files
-      { "<leader><space>", false },
-      { "<leader>,",       false },
-      { "<leader>fF",      false },
-      -- git
-      { "<leader>gc",      false },
-      { "<leader>gs",      false },
-      -- search
-      { "<leader>sb",      false },
-      { "<leader>sG",      false },
-      { "<leader>sg",      false },
-      { "<leader>so",      false },
-      { "<leader>sW",      false },
-      { "<leader>sw",      false },
-      { "<leader>sW",      false, mode = "v" },
-      { "<leader>sR",      false },
-    },
+		config = function()
+			require("telescope").setup({
+				extensions = {
+					["ui-select"] = {
+						require("telescope.themes").get_dropdown(),
+					},
+				},
+			})
+
+			pcall(require("telescope").load_extension, "fzf")
+			pcall(require("telescope").load_extension, "ui-select")
+
+			local builtin = require("telescope.builtin")
+			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
+			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
+			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+			vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
+			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+			vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+
+			-- Slightly advanced example of overriding default behavior and theme
+			vim.keymap.set("n", "<leader>/", function()
+				-- You can pass additional configuration to Telescope to change the theme, layout, etc.
+				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+					winblend = 10,
+					previewer = false,
+				}))
+			end, { desc = "[/] Fuzzily search in current buffer" })
+
+			-- It's also possible to pass additional configuration options.
+			--  See `:help telescope.builtin.live_grep()` for information about particular keys
+			vim.keymap.set("n", "<leader>s/", function()
+				builtin.live_grep({
+					grep_open_files = true,
+					prompt_title = "Live Grep in Open Files",
+				})
+			end, { desc = "[S]earch [/] in Open Files" })
+
+			-- Shortcut for searching your Neovim configuration files
+			vim.keymap.set("n", "<leader>sn", function()
+				builtin.find_files({ cwd = vim.fn.stdpath("config") })
+			end, { desc = "[S]earch [N]eovim files" })
+		end,
 	},
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
@@ -301,27 +329,31 @@ return {
 					-- Jump to the definition of the word under your cursor.
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-t>.
-					map("gd", require("fzf-lua").lsp_definitions, "[G]oto [D]efinition")
+					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 
 					-- Find references for the word under your cursor.
-					map("gr", require("fzf-lua").lsp_references, "[G]oto [R]eferences")
+					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 
 					-- Jump to the implementation of the word under your cursor.
 					--  Useful when your language has ways of declaring types without an actual implementation.
-					map("gI", require("fzf-lua").lsp_implementations, "[G]oto [I]mplementation")
+					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
 
 					-- Jump to the type of the word under your cursor.
 					--  Useful when you"re not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
-					map("<leader>D", require("fzf-lua").lsp_typedefs, "Type [D]efinition")
+					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
 
 					-- Fuzzy find all the symbols in your current document.
 					--  Symbols are things like variables, functions, types, etc.
-					map("<leader>ds", require("fzf-lua").lsp_document_symbols, "[D]ocument [S]ymbols")
+					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 
 					-- Fuzzy find all the symbols in your current workspace.
 					--  Similar to document symbols, except searches over your entire project.
-					map("<leader>ws", require("fzf-lua").lsp_live_workspace_symbols, "[W]orkspace [S]ymbols")
+					map(
+						"<leader>ws",
+						require("telescope.builtin").lsp_dynamic_workspace_symbols,
+						"[W]orkspace [S]ymbols"
+					)
 
 					-- Rename the variable under your cursor.
 					--  Most Language Servers support renaming across files, etc.
