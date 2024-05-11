@@ -108,7 +108,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias c='code .'
 alias o='open .'
 alias dw='cd dev/web'
 alias tg='open -a Telegram'
@@ -268,3 +267,5 @@ path+=~/.config/emacs/bin
 alias cls="clear && ls -lah"
 bindkey "\e[1;3D" backward-word     # ⌥←
 bindkey "\e[1;3C" forward-word
+
+neofetch

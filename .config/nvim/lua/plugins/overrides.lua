@@ -463,7 +463,6 @@ return {
 							gofumpt = true,
 							analyses = {
 								unusedparams = true,
-								shadow = true,
 								fieldalignment = true,
 								useany = true,
 							},
