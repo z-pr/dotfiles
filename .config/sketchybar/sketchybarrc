@@ -1,0 +1,85 @@
+#!/bin/bash
+
+source "$CONFIG_DIR/colors.sh"
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+ITEM_DIR="$CONFIG_DIR/items"
+
+##### Bar Appearance #####
+# Configuring the general appearance of the bar.
+# These are only some of the options available. For all options see:
+# https://felixkratz.github.io/SketchyBar/config/bar
+# If you are looking for other colors, see the color picker:
+# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+
+##### Changing Defaults #####
+# We now change some default values, which are applied to all further items.
+# For a full list of all available item properties see:
+# https://felixkratz.github.io/SketchyBar/config/items
+
+FONT="MonaspiceKr Nerd Font"
+PADDINGS=8
+
+default=(
+  background.padding_left=$(($PADDINGS / 2))
+  background.padding_right=$(($PADDINGS / 2))
+  icon.padding_left=2
+  icon.padding_right=$(($PADDINGS / 2))
+  icon.background.corner_radius=4
+  icon.background.height=18
+  icon.font="$FONT:Regular:14"
+  icon.color=$ICON_COLOR
+  icon.highlight_color=$HIGHLIGHT
+  label.font="$FONT:Regular:12"
+  label.color=$LABEL_COLOR
+  label.highlight_color=$HIGHLIGHT
+  label.padding_left=$(($PADDINGS / 2))
+  updates=when_shown
+  scroll_texts=on
+)
+
+sketchybar --default "${default[@]}"
+
+bar=(
+  position=top
+  height=37
+  blur_radius=0
+  color=$TRANSPARENT
+  sticky=on
+  padding_letf=$PADDINGS
+  padding_right=$PADDINGS
+  corner_radius=0
+)
+
+sketchybar --bar "${bar[@]}"
+
+# Left side
+source "$ITEM_DIR/front_app.sh"
+
+# Center side
+source "$ITEM_DIR/media.sh"
+
+# Right Side
+source "$ITEM_DIR/calendar.sh"
+source "$ITEM_DIR/volume.sh"
+source "$ITEM_DIR/battery.sh"
+sketchybar --add item sep1 right --set sep1 width=10
+source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/wifi.sh"
+source "$ITEM_DIR/brew.sh"
+sketchybar --add alias TextInputMenuAgent right
+
+bracket_defaults=(
+  background.height=24
+  background.color=$BAR_COLOR
+  blur_radius=32
+  background.corner_radius=$PADDINGS
+)
+
+sketchybar --add bracket control calendar volume battery \
+           --set control "${bracket_defaults[@]}" \
+           --add bracket info cpu wifi brew \
+           --set info "${bracket_defaults[@]}" \
+
+sketchybar --hotload on
+sketchybar --update
