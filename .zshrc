@@ -262,9 +262,11 @@ fi
 # To initialize zoxide, add this to your configuration (usually ~/.zshrc):
 #
 eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
 
 path+=~/.config/emacs/bin
 alias cls="clear && ls -lah"
+alias l="exa --icons -al"
 bindkey "\e[1;3D" backward-word     # ⌥←
 bindkey "\e[1;3C" forward-word
 
