@@ -1,4 +1,9 @@
 return {
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^4", -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
 	{ "numToStr/Comment.nvim", opts = {} },
 	{
 		"nvim-neo-tree/neo-tree.nvim",

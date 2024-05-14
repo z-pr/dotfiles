@@ -53,6 +53,26 @@ bar=(
 
 sketchybar --bar "${bar[@]}"
 
+menu_defaults=(
+  popup.blur_radius=32
+  popup.background.color=$POPUP_BACKGROUND_COLOR
+  popup.background.corner_radius=$PADDINGS
+  popup.background.shadow.drawing=on
+  popup.background.shadow.color=$(getcolor black 50)
+  popup.background.shadow.angle=90
+  popup.background.shadow.distance=16
+)
+
+menu_item_defaults=(
+  label.font="$FONT:Regular:13"
+  padding_left=$PADDINGS
+  padding_right=$PADDINGS
+  icon.padding_left=0
+  icon.color=$HIGHLIGHT
+  background.color=$TRANSPARENT
+  scroll_texts=on
+)
+
 # Left side
 source "$ITEM_DIR/front_app.sh"
 
@@ -67,6 +87,8 @@ sketchybar --add item sep1 right --set sep1 width=10
 source "$ITEM_DIR/cpu.sh"
 source "$ITEM_DIR/wifi.sh"
 source "$ITEM_DIR/brew.sh"
+sketchybar --add item sep2 right --set sep2 width=10
+source "$ITEM_DIR/weather.sh"
 sketchybar --add alias TextInputMenuAgent right
 
 bracket_defaults=(
@@ -80,6 +102,8 @@ sketchybar --add bracket control calendar volume battery \
            --set control "${bracket_defaults[@]}" \
            --add bracket info cpu wifi brew \
            --set info "${bracket_defaults[@]}" \
+           --add bracket wthr weather \
+           --set wthr "${bracket_defaults[@]}"
 
 sketchybar --hotload on
 sketchybar --update

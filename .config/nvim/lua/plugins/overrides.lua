@@ -489,7 +489,9 @@ return {
 					capabilities = capabilities,
 					filetypes = { "html", "templ" },
 				},
-				-- clangd = {},
+				clangd = {
+					capabilities = capabilities,
+				},
 				-- gopls = {},
 				-- pyright = {},
 				-- rust_analyzer = {},
