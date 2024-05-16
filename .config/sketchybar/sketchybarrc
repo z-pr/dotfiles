@@ -86,7 +86,6 @@ source "$ITEM_DIR/battery.sh"
 sketchybar --add item sep1 right --set sep1 width=10
 source "$ITEM_DIR/cpu.sh"
 source "$ITEM_DIR/wifi.sh"
-source "$ITEM_DIR/brew.sh"
 sketchybar --add item sep2 right --set sep2 width=10
 source "$ITEM_DIR/weather.sh"
 sketchybar --add alias TextInputMenuAgent right
@@ -100,7 +99,7 @@ bracket_defaults=(
 
 sketchybar --add bracket control calendar volume battery \
            --set control "${bracket_defaults[@]}" \
-           --add bracket info cpu wifi brew \
+           --add bracket info cpu wifi.control \
            --set info "${bracket_defaults[@]}" \
            --add bracket wthr weather \
            --set wthr "${bracket_defaults[@]}"
