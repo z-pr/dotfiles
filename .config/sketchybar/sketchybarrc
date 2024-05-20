@@ -89,6 +89,7 @@ source "$ITEM_DIR/wifi.sh"
 sketchybar --add item sep2 right --set sep2 width=10
 source "$ITEM_DIR/weather.sh"
 sketchybar --add alias TextInputMenuAgent right
+sketchybar --add alias "Docker Desktop,Item-0" left
 
 bracket_defaults=(
   background.height=24
