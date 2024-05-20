@@ -17,7 +17,7 @@ ITEM_DIR="$CONFIG_DIR/items"
 # For a full list of all available item properties see:
 # https://felixkratz.github.io/SketchyBar/config/items
 
-FONT="MonaspiceKr Nerd Font"
+FONT="JetBrainsMono Nerd Font"
 PADDINGS=8
 
 default=(
