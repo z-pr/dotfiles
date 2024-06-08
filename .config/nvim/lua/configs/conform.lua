@@ -5,13 +5,21 @@ local options = {
     html = { "prettier" },
     js = { "prettier" },
     ts = { "prettier" },
-    gopls = { "gofumpt", "golines", "goimports-reviser" },
+    go = { "gofumpt", "golines", "goimports-reviser" },
   },
 
   format_on_save = {
     -- These options will be passed to conform.format()
     timeout_ms = 500,
     lsp_fallback = true,
+  },
+
+  formatters = {
+    golines = {
+      command = "golines",
+      args = { "-m", "80" },
+      stdin = true,
+    },
   },
 }
 

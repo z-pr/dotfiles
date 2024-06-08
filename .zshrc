@@ -61,6 +61,8 @@ setopt hist_find_no_dups
 
 # Path
 path+=("${HOME}/.cargo/bin")
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # Completion styling
 zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}"
