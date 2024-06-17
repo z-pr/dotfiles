@@ -87,3 +87,9 @@ lspconfig.lua_ls.setup {
     },
   },
 }
+
+lspconfig.clangd.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+}

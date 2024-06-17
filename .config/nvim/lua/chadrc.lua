@@ -5,7 +5,7 @@
 local M = {}
 
 M.ui = {
-  theme = "rosepine",
+  theme = "decay",
   cmp = {
     icons = true,
     lspkind_text = true,
