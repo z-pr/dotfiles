@@ -91,9 +91,9 @@ type = "prompt"
 [secondary_prompt]
 background = "transparent"
 foreground = "p:terminal-blue"
-template = "➜ "
+template = ""
 
 [transient_prompt]
 background = "p:t-background"
 foreground = "p:terminal-blue"
-template = "➜ "
+template = ""
