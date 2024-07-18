@@ -39,7 +39,7 @@ type = "prompt"
   template = "<b>{{ .Path }}</b> <p:light-sky-blue>⚡</>"
 
     [blocks.segments.properties]
-    style = "folder"
+    style = "full"
 
   [[blocks.segments]]
   type = "git"
@@ -94,6 +94,6 @@ foreground = "p:terminal-blue"
 template = " "
 
 [transient_prompt]
-background = "p:t-background"
+background = "transparent"
 foreground = "p:terminal-blue"
 template = " "

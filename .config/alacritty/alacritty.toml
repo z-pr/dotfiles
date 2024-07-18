@@ -1,7 +1,7 @@
-import = ["~/.config/alacritty/rose-pine.toml"]
+#import = ["~/.config/alacritty/rose-pine.toml"]
 
 [window]
-opacity = 0.6
+opacity = 1
 blur = true
 decorations = "Buttonless"
 option_as_alt = "Both"
@@ -18,3 +18,9 @@ bindings = [
   { key = "Left", mods = "Command", chars = "\u0001" },
   { key = "Right", mods = "Command", chars = "\u0005" },
 ]
+
+[colors]
+cursor = { text = "#000000", cursor = "#ffffff" }
+
+[colors.primary]
+background = "#000000"
