@@ -6,6 +6,7 @@ local options = {
 		js = { "prettier" },
 		ts = { "prettier" },
 		go = { "gofumpt", "golines", "goimports-reviser" },
+		c = { "clang-format" },
 	},
 
 	format_on_save = {

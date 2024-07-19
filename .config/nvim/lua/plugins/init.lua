@@ -103,12 +103,16 @@ return {
 					},
 				},
 				extensions = {
+					wrap_results = true,
+					fzf = {},
 					["ui-select"] = {
-						require("telescope.themes").get_dropdown(),
+						require("telescope.themes").get_dropdown({}),
 					},
 				},
-				require("telescope").load_extension("ui-select"),
 			})
+
+			pcall(require("telescope").load_extension("ui-select"))
+			pcall(require("telescope").load_extension("fzf"))
 		end,
 	},
 	{
@@ -174,6 +178,9 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
+		dependencies = {
+			{ "j-hui/fidget.nvim", opts = {} },
+		},
 		config = function()
 			require("configs.lspconfig")
 		end,
