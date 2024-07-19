@@ -20,7 +20,7 @@ bindings = [
 ]
 
 [colors]
-cursor = { text = "#000000", cursor = "#ffffff" }
+cursor = { text = "#000000", cursor = "#74E291" }
 
 [colors.primary]
 background = "#000000"
