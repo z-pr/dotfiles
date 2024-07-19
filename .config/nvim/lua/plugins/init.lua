@@ -1,34 +1,64 @@
 return {
-	-- {
-	-- 	"ellisonleao/gruvbox.nvim",
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		require("gruvbox").setup({
-	-- 			transparent_mode = true,
-	-- 		})
-	--
-	-- 		vim.cmd("colorscheme gruvbox")
-	-- 	end,
-	-- },
+	{
+		"ellisonleao/gruvbox.nvim",
+		priority = 1000,
+		config = function()
+			require("gruvbox").setup({
+				terminal_colors = true,
+				bold = false,
+				transparent_mode = true,
+				italic = {
+					strings = false,
+					emphasis = false,
+					comments = false,
+					operators = false,
+					folds = false,
+				},
+				contrast = "soft",
+			})
+
+			vim.cmd("colorscheme gruvbox")
+		end,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("lualine").setup({
+				options = {
+					icons_enabled = true,
+					theme = "gruvbox",
+				},
+				sections = {
+					lualine_a = { "mode" },
+					lualine_b = { "branch" },
+					lualine_c = { "filename" },
+					lualine_x = {},
+					lualine_y = {},
+					lualine_z = { "location" },
+				},
+			})
+		end,
+	},
 	-- {
 	-- 	"rebelot/kanagawa.nvim",
 	-- 	config = function()
 	-- 		vim.cmd("colorscheme kanagawa")
 	-- 	end,
 	-- },
-	{
-		"rose-pine/neovim",
-		config = function()
-			require("rose-pine").setup({
-				styles = {
-					bold = true,
-					italic = false,
-					transparency = true,
-				},
-			})
-			vim.cmd("colorscheme rose-pine")
-		end,
-	},
+	-- {
+	-- 	"rose-pine/neovim",
+	-- 	config = function()
+	-- 		require("rose-pine").setup({
+	-- 			styles = {
+	-- 				bold = true,
+	-- 				italic = false,
+	-- 				transparency = true,
+	-- 			},
+	-- 		})
+	-- 		vim.cmd("colorscheme rose-pine-moon")
+	-- 	end,
+	-- },
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
@@ -117,6 +147,9 @@ return {
 				"typescript",
 				"javascript",
 			},
+			indent = {
+				enable = true,
+			},
 			highlight = {
 				enable = true,
 				additional_vim_regex_highlighting = false,
@@ -146,17 +179,16 @@ return {
 		end,
 	},
 	{
-		"hrsh7th/cmp-nvim-lsp",
-	},
-	{
-		"L3MON4D3/LuaSnip",
+		"hrsh7th/nvim-cmp",
 		dependencies = {
+			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-buffer",
 		},
-	},
-	{
-		"hrsh7th/nvim-cmp",
 		config = function()
 			local cmp = require("cmp")
 			require("luasnip.loaders.from_vscode").lazy_load()
@@ -169,8 +201,8 @@ return {
 					end,
 				},
 				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
+					-- completion = cmp.config.window.bordered(),
+					-- documentation = cmp.config.window.bordered(),
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -210,6 +242,7 @@ return {
 					{ name = "luasnip" }, -- For luasnip users.
 				}, {
 					{ name = "buffer" },
+					{ name = "path" },
 				}),
 			})
 		end,
