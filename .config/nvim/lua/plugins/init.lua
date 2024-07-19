@@ -180,6 +180,7 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{ "j-hui/fidget.nvim", opts = {} },
+			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
 			require("configs.lspconfig")
