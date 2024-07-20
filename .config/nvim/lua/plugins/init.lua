@@ -6,7 +6,7 @@ return {
 			require("gruvbox").setup({
 				terminal_colors = true,
 				bold = false,
-				transparent_mode = true,
+				transparent_mode = false,
 				italic = {
 					strings = false,
 					emphasis = false,
@@ -34,7 +34,7 @@ return {
 					lualine_b = { "branch" },
 					lualine_c = { "filename" },
 					lualine_x = {},
-					lualine_y = {},
+					lualine_y = { "diagnostics" },
 					lualine_z = { "location" },
 				},
 			})
@@ -99,6 +99,14 @@ return {
 							"!*.sum",
 							"--glob",
 							"!*-lock.json",
+							"--glob",
+							"!*.png",
+							"--glob",
+							"!*.jpg",
+							"--glob",
+							"!*.jpeg",
+							"--glob",
+							"!.DS_Store",
 						},
 					},
 				},

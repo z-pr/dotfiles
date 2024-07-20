@@ -72,4 +72,18 @@ lspconfig.clangd.setup({
 	on_attach = on_attach,
 	on_init = on_init,
 	capabilities = capabilities,
+	cmd = {
+		"/usr/bin/clangd",
+		"--background-index",
+		"--pch-storage=memory",
+		"--all-scopes-completion",
+		"--pretty",
+		"--header-insertion=never",
+		"-j=4",
+		"--inlay-hints",
+		"--header-insertion-decorators",
+		"--function-arg-placeholders",
+		"--completion-style=detailed",
+	},
+	filetypes = { "c", "cpp", "objc", "objcpp" },
 })

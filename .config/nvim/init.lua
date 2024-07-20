@@ -18,9 +18,6 @@ local opt = vim.opt
 local o = vim.o
 local g = vim.g
 
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
 opt.guicursor = "n-v-i-c:block-Cursor"
 
 g.mapleader = " "
@@ -114,3 +111,5 @@ require("lazy").setup({
 		},
 	},
 })
+
+vim.api.nvim_set_hl(0, "Normal", { bg = "black" })

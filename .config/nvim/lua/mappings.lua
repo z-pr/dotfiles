@@ -22,8 +22,19 @@ map("n", "<tab>", vim.cmd.bnext, { desc = "Next buffer" })
 map("n", "<S-tab>", vim.cmd.bprevious, { desc = "Previous buffer" })
 map("n", "<leader>x", vim.cmd.bd, { desc = "Close buffer" })
 
+-- No highlight
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "general clear highlights" })
 
+-- Explorer
 map("n", "<C-\\>", vim.cmd.Ex)
 
+-- Normal mode
 map("i", "jj", "<Esc>")
+
+map("n", "<C-h>", "<C-w>h")
+map("n", "<C-l>", "<C-w>l")
+map("n", "<C-j>", "<C-w>j")
+map("n", "<C-k>", "<C-w>k")
+
+-- Diagnostic float window
+map("n", "<leader>e", vim.diagnostic.open_float)
