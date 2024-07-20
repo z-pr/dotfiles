@@ -30,3 +30,4 @@ yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^Docker Desktop$" manage=off
 yabai -m rule --add app="^Music$" manage=off
 yabai -m rule --add app="^1Password$" manage=off
+yabai -m rule --add app="^GAME$" manage=off
